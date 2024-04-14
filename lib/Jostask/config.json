@@ -1,0 +1,24 @@
+[
+    {
+        "name": "JosConfig",
+        "label": "monitor position",
+        "type": "boolean",
+        "default": "false",
+        "description": "switch on logging of position acquired/failed",
+        "category": "Jos",
+        "capabilities": {
+            "testboard":"true"
+        }
+    },
+    {
+        "name": "JosBDSel",
+        "label": "value to check",
+        "type": "boatData",
+        "default": "",
+        "description": "select a value to monitor for value change",
+        "category": "Jos",
+        "capabilities": {
+            "testboard":"true"
+        }
+    }
+]

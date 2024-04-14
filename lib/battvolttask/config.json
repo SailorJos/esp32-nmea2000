@@ -1,0 +1,81 @@
+[
+    {
+        "name": "battvoltBDSel",
+        "label": "value to check",
+        "type": "boatData",
+        "default": "0",
+        "description": "select a value to monitor for value change",
+        "category": "battvolt",
+        "capabilities": {
+            "ttgo-t7-v14-mini32":"true"
+        }
+    },
+    {
+        "name": "ADconvertor",
+        "label": "voltage transducer name",
+        "type": "String",
+        "default": "BattVoltADconv",
+        "description": "set the name for the xdr transducer for the voltage, leave empty to disable ",
+        "category": "battvolt",
+        "capabilities": {
+            "ttgo-t7-v14-mini32":"true"
+
+        }
+    },
+            {
+        "name": "bvInstanceId",
+        "label": "voltage instance id",
+        "type": "number",
+        "default": 99,
+        "description": "the N2K instance id for the voltage ",
+        "category": "battvolt",
+        "min": 0,
+        "max": 255,
+        "check": "checkMinMax",
+        "capabilities": {
+            "ttgo-t7-v14-mini32":"true"
+        }
+    },
+    {
+        "name": "battvoltintv",
+        "label": "battvolt Interval",
+        "type": "number",
+        "default": 2,
+        "description": "Interval(s) to query AD conversion battvolt (1...300sec)",
+        "category": "battvolt",
+        "min": 1,
+        "max": 300,
+        "check": "checkMinMax",
+        "capabilities": {
+            "ttgo-t7-v14-mini32":"true"
+        }
+    },
+    {
+        "name": "numReadings",
+        "label": "number AD readings to be averaged",
+        "type": "number",
+        "default": 100,
+        "description": "number AD readings to be averaged (1...10000)",
+        "category": "battvolt",
+        "min": 1,
+        "max": 10001,
+        "check": "checkMinMax",
+        "capabilities": {
+            "ttgo-t7-v14-mini32":"true"
+        }
+    },
+    {
+        "name": "voltCorr",
+        "label": "Correction for n2k power line resistance",
+        "type": "number",
+        "default": 0,
+        "description": "correction for volt deviation due to resistance in power line in mV(1...10000)",
+        "category": "battvolt",
+        "min": 0,
+        "max": 10000,
+        "check": "checkMinMax",
+        "capabilities": {
+            "ttgo-t7-v14-mini32":"true"
+        }
+    }
+]

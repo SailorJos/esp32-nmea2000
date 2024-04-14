@@ -768,7 +768,48 @@ void loopFunction(void *){
     //delay(1);
   }
 }
+
+//=======================================================================================================
+void changeNX2baud() {    //JS
+/*
+  NX2 Server Baudrate control.
+  It is possible to change the baudrate from 4800bps to 19200bps.
+  To do that, a PC is required. Note 19200 is not to be considered
+  as NMEA since the standard states 4800.
+  a. The Requesting unit is allowed to transmit the message:
+    "$PSILBPS,19200,R,<CR><LF>"
+    once every 2s at nominal 4800 bps with normal NMEA start bit and stop bit settings.
+    This message may be received on any of the two Server ports.
+  b. The receiving unit (NX2 Server) will Confirm message:
+    "$PSILBPS,19200,C,<CR><LF>"
+    and send it back on output ports to the requesting unit.
+  c. When the requesting unit receives the same message but with the flag set to "C"
+    (Confirmed), both server ports (A and B) are set to 19200bps and transmission may
+    start at the new baudrate. The sending unit may now stop sending the proprietary
+    request message since it has entered the higher baudrate. There is no way back
+    unless there is a power loss.
+  From power up, baudrate is always set to 4800 and the above procedure must be
+  repeated.
+  The receiving unit (Nexus Server) will always check for the proprietary message when
+  in normal baudrate, not when in high baudrate.
+*/ 
+Serial1.begin(4800, SERIAL_8N1, 22, 21);
+delay(500);
+Serial1.println("$PSILBPS,19200,R,/r/n");
+delay(2000);
+Serial1.println("$PSILBPS,19200,R,/r/n");
+delay(2000);
+Serial1.end();
+delay(500);
+}
+//=======================================================================================================
+
+
 void setup() {
+  //=======================================================================================================
+changeNX2baud();    //JS
+//=======================================================================================================
+
   mainLock=xSemaphoreCreateMutex();
   uint8_t chipid[6];
   uint32_t id = 0;
@@ -878,7 +919,7 @@ void setup() {
   for (int i = 0; i < 6; i++) id += (chipid[i] << (7 * i));
 
   // Set product information
-  NMEA2000.SetProductInformation("1", // Manufacturer's Model serial code
+NMEA2000.SetProductInformation("ESP32NMEA2k by Jos Schotman",    //js  "1", // Manufacturer's Model serial code
                                  100, // Manufacturer's product code
                                  systemName->asCString(),  // Manufacturer's Model ID
                                  FIRMWARE_TYPE,  // Manufacturer's Software version code
